@@ -38,6 +38,8 @@ def test_model(test):
     m = create_model()
     prediction = m.predict(test)
     print('Prediction:' + str(prediction) + '   Co - Efficient: ' + str(m.coef_))
+    
+    return prediction
 
 
 # Main
