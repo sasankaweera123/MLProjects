@@ -1,37 +1,49 @@
 from sklearn.linear_model import LinearRegression
 import random
 
-feature_set = []
-target_set = []
 
-nRows = 200
-randomNLimit = 2000
+# Data set
+def data_set():
 
-for i in range(0, nRows):
-    x = random.randint(0, randomNLimit)
-    y = random.randint(0, randomNLimit)
-    z = random.randint(0, randomNLimit)
-    
-    function = (10*x)+(2*y)+(3*z)
+    feature_set = []
+    target_set = []
 
-    feature_set.append([x, y, z])
-    target_set.append(function)
+    n_rows = 200
+    random_number_limit = 2000
+
+    for i in range(0, n_rows):
+        x = random.randint(0, random_number_limit)
+        y = random.randint(0, random_number_limit)
+        z = random.randint(0, random_number_limit)
+
+        function = (10 * x) + (2 * y) + (3 * z)
+
+        feature_set.append([x, y, z])
+        target_set.append(function)
+
+    return feature_set, target_set
+
 
 # Model
+def create_model():
+    f_set, t_set = data_set()
+    model = LinearRegression()
+    model.fit(f_set, t_set)
 
-model = LinearRegression()
-model.fit(feature_set, target_set)
-
-# Testing Data set
-test_set = [[8, 4, 7]] # Expected Output = function(8,4,7) = (10*8) + (2*4) + (3*7) =  109
-prediction = model.predict(test_set)
-
-test_set_2 = [[9, 2, 2]]  # Expected Output = function(9,2,2) = (10*9) + (2*2) + (3*2) =  100
-prediction2 = model.predict(test_set_2)
+    return model
 
 
-print('Prediction:' + str(prediction) + '   Co - Efficient: ' + str(model.coef_))
-print('Prediction:' + str(prediction2) + '   Co - Efficient: ' + str(model.coef_))
+# Test
+def test_model(test):
+    m = create_model()
+    prediction = m.predict(test)
+    print('Prediction:' + str(prediction) + '   Co - Efficient: ' + str(m.coef_))
+    
+    return prediction
 
 
-
+# Main
+if __name__ == '__main__':
+    test_set = [[8, 4, 7]]
+    test_model(test_set)
+    
